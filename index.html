@@ -48,19 +48,21 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
+            padding: 15px;
+            max-width: 90%;
             margin: 0 auto;
+            width: 350px;
         }
         .letter-box {
             background: linear-gradient(135deg, #fff0f5, #ffe4e1);
             border: 2px solid #ff69b4;
             border-radius: 15px;
-            padding: 20px;
-            max-width: 400px;
+            padding: 15px;
+            max-width: 90%;
             margin: 20px auto;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
+            width: 350px;
         }
         .letter-box::before {
             content: '💌';
@@ -90,8 +92,9 @@
         }
         .carousel-container {
             position: relative;
-            width: 500px;
-            height: 350px;
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
             margin: 0 auto;
             overflow: hidden;
             margin-top: 100px;
@@ -104,22 +107,22 @@
             transition: transform 0.5s ease;
         }
         .carousel img {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             object-fit: cover;
             border-radius: 15px;
             cursor: pointer;
-            margin-right: -150px;
+            margin-right: -80px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             transition: margin-right 0.3s ease, transform 0.3s ease;
-            border: 4px solid #ffb6c1;
+            border: 3px solid #ffb6c1;
         }
         .carousel img:hover {
             transform: scale(1.1);
-            margin-right: -120px;
+            margin-right: -60px;
         }
         .carousel img.active {
-            margin-right: -100px;
+            margin-right: -50px;
             transform: scale(1.2);
             z-index: 10;
             border-color: #ff69b4;
@@ -153,14 +156,16 @@
         .music-player {
             background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
             border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 15px;
+            margin: 20px auto;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             gap: 10px;
             border: 2px solid #ff69b4;
             animation: pulse 3s infinite;
+            max-width: 90%;
+            width: 350px;
         }
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -171,7 +176,7 @@
             background: #ff69b4;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 12px;
             border-radius: 50%;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.3s ease;
@@ -186,7 +191,7 @@
         }
         .music-player .song-info h3 {
             color: #ff69b4;
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 5px;
             animation: fadeInText 2s infinite;
         }
@@ -197,7 +202,7 @@
         }
         .music-player .song-info p {
             color: #333;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         .hidden-text {
             display: none;
@@ -209,6 +214,44 @@
             0% { transform: translateY(20px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .carousel-container {
+                max-width: 300px;
+                height: 200px;
+            }
+            .carousel img {
+                width: 90px;
+                height: 90px;
+                margin-right: -60px;
+            }
+            .carousel img:hover {
+                margin-right: -40px;
+            }
+            .carousel img.active {
+                margin-right: -30px;
+            }
+            h1[style="font-size: 40px;"] {
+                font-size: 30px;
+            }
+            p[style="font-size: 30px; margin-top:20px;"] {
+                font-size: 20px;
+                margin-top: 10px;
+            }
+            .music-player .song-info h3 {
+                font-size: 0.9rem;
+            }
+            .music-player .song-info p {
+                font-size: 0.7rem;
+            }
+            .letter-box p {
+                font-size: 0.85rem;
+            }
+            .content-box p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -218,7 +261,6 @@
         เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
     </audio>
 
-    <center>
     <!-- Home Section -->
     <section class="min-h-screen flex flex-col items-center justify-start pt-16 pb-10" style="margin-top: 0;">
         <div class="text-center fade-in" data-observer>
@@ -241,6 +283,7 @@
             </div>
             <audio id="bgMusicPlayer" loop>
                 <source src="./audio/audio.mp3" type="audio/mpeg">
+                <source src="https://www.bensound.com/bensound-music/bensound-sweet.mp3" type="audio/mpeg"> <!-- Backup URL -->
             </audio>
         </div>
         <div class="letter-box fade-in" data-observer>
@@ -273,7 +316,6 @@
             <p id="hiddenText" class="hidden-text">รักคุณมากๆ นะครับ Fah 💕 ขอบคุณที่อยู่กับเค้าตลอดมา</p>
         </div>
     </section>
-    </center>
 
     <script>
         // Control Background Music
@@ -338,7 +380,7 @@
                 images[i].classList.remove('active');
             }
             images[currentIndex].classList.add('active');
-            const offset = -currentIndex * 100;
+            const offset = -currentIndex * 70; // ปรับระยะห่างให้เหมาะสมกับมือถือ
             carousel.style.transform = `translateX(${offset}px)`;
         }
 
@@ -356,7 +398,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing after animation
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
