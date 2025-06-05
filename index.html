@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="สุขสันต์วันเกิด Fah - ความทรงจำของเรา">
+    <title>สุขสันต์วันเกิด Fah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mali', cursive;
+            background: rgb(230, 190, 197);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            height: 100vh;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .flower-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('https://img.icons8.com/emoji/20/flower.png');
+            background-size: cover;
+            animation: floatFlower 6s linear infinite, rotateFlower 3s infinite;
+            pointer-events: none;
+        }
+        @keyframes floatFlower {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-80px) rotate(180deg); opacity: 0.5; }
+            100% { transform: translateY(-150px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes rotateFlower {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .content-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .letter-box {
+            background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+            border: 2px solid #ff69b4;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .letter-box::before {
+            content: '💌';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        .navbar {
+            background: rgba(173, 216, 230, 0.9);
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+        .carousel-container {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            margin: 0 auto;
+            overflow: hidden;
+            margin-top: 100px;
+        }
+        .carousel {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+        }
+        .carousel img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-right: -150px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: margin-right 0.3s ease, transform 0.3s ease;
+            border: 4px solid #ffb6c1;
+        }
+        .carousel img:hover {
+            transform: scale(1.1);
+            margin-right: -120px;
+        }
+        .carousel img.active {
+            margin-right: -100px;
+            transform: scale(1.2);
+            z-index: 10;
+            border-color: #ff69b4;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInModal 0.5s ease-in;
+        }
+        @keyframes fadeInModal {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 15px;
+        }
+        .music-player {
+            background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #ff69b4;
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .music-player button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .music-player button:hover {
+            background: #ff85c0;
+            transform: scale(1.1);
+        }
+        .music-player .song-info {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .music-player .song-info h3 {
+            color: #ff69b4;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            animation: fadeInText 2s infinite;
+        }
+        @keyframes fadeInText {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        .music-player .song-info p {
+            color: #333;
+            font-size: 0.9rem;
+        }
+        .hidden-text {
+            display: none;
+            margin-top: 10px;
+            color: #ff69b4;
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sweet.mp3" type="audio/mpeg">
+        เบราว์เซอร์ของคุณไม่รองรับการเล่นเพลง
+    </audio>
+
+    <!-- Home Section -->
+    <section class="min-h-screen flex flex-col items-center justify-start pt-16 pb-10" style="margin-top: 0;">
+        <div class="text-center fade-in" data-observer>
+            <h1 class="text-3xl font-bold text-blue-500 mb-2" style="font-size: 70px;">สุขสันต์วันเกิด</h1>
+            <p class="text-xl text-pink-500 mb-4" style="font-size: 30px; margin-top:20px;">Fah</p>
+        </div>
+        <div class="carousel-container fade-in" data-observer style="margin-top: 100px;">
+            <div class="carousel" id="carousel" style="width: 1200px;">
+                <img src="./images/image_1.jpg" onclick="openModal(this.src)">
+                <img src="./images/image_2.jpg" onclick="openModal(this.src)">
+                <img src="./images/image_3.jpg" onclick="openModal(this.src)">
+                <img src="./images/image4.jpg" onclick="openModal(this.src)">
+            </div>
+        </div>
+        <div class="music-player fade-in" data-observer>
+            <button onclick="toggleMusic()" id="playPauseBtn">▶️</button>
+            <div class="song-info">
+                <h3>เพลง สุขสันต์วันเกิดที่รัก</h3>
+                <p>สุดที่รัก</p>
+            </div>
+            <audio id="bgMusicPlayer" loop>
+                <source src="./audio/audio.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="letter-box fade-in" data-observer>
+            <h3 class="text-lg font-bold text-pink-600 mb-4 text-center">ถึง ฟ้า ที่รักของเค้า</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">
+                สุขสันต์วันเกิดนะคนดีของเค้า 💖
+    วันนี้เป็นวันพิเศษอีกวันหนึ่ง ที่โลกได้มีเธอเข้ามาอยู่ตรงนี้ และสำหรับเรามันคือวันที่โชคดีที่สุด เพราะเราได้มีเธอเป็นแฟน 💑
+
+เธออายุ 22 แล้วนะ… เวลาผ่านไปไวมากเลย เธอก็ยังน่ารัก สดใส และอบอุ่นเหมือนวันแรกที่เราได้รู้จักกันเลย (แต่อาจจะขี้อ้อนขึ้นอีกนิด 😆)
+ขอบคุณที่เธออยู่ตรงนี้ อยู่ข้างๆ กันในวันที่เรายิ้ม และในวันที่เราท้อ
+ขอบคุณที่คอยเติมเต็มทุกวันธรรมดา ให้กลายเป็นวันพิเศษ
+ขอบคุณที่เป็นทั้งแฟน เป็นเพื่อน และเป็นที่พักใจของเราเสมอ 💕
+
+เรารู้ว่าเส้นทางข้างหน้ายังมีอะไรอีกเยอะที่เธอจะต้องเจอ อาจมีทั้งเรื่องที่ทำให้ยิ้ม และเรื่องที่ทำให้ร้องไห้
+แต่อยากให้รู้ไว้นะว่า “ไม่ว่าเมื่อไหร่ เธอจะไม่ได้เดินคนเดียวเลย”
+เพราะเราจะอยู่ตรงนี้เสมอ อยู่ในทุกช่วงชีวิตของเธอ ทั้งวันที่เธอเหนื่อย วันที่เธอยิ้ม หรือแม้แต่วันที่เธอไม่มั่นใจในตัวเอง
+
+ขอให้ปีนี้เป็นปีที่เธอได้เติบโตขึ้นในแบบที่เธออยากเป็น
+ได้ทำสิ่งที่รัก ประสบความสำเร็จในสิ่งที่ตั้งใจ และมีพลังใจดี ๆ ล้อมรอบเสมอ
+และแน่นอน ขอให้มีความรักดี ๆ แบบนี้อยู่ข้างๆ ตลอดไป…แบบเราสองคน 💑
+
+รักเธอมากที่สุดนะ 22 ปีของเธอจะพิเศษมาก ๆ เพราะมีเราคอยอยู่ข้างๆ เสมอ 💘
+            </p>
+        </div>
+        <div class="text-center content-box fade-in" data-observer>
+            <p class="text-sm text-gray-700 mb-4 fade-in" style="color: black;">
+                วันนี้เป็นวันที่พิเศษสำหรับเรา เค้าอยากให้หมูรู้ว่าหมูคือคนสำคัญที่สุดในชีวิตเค้านะ
+            </p>
+            <button onclick="toggleHiddenText()" class="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600">คลิกเพื่อข้อความพิเศษ</button>
+            <p id="hiddenText" class="hidden-text">รักคุณมากๆ นะครับ Fah 💕 ขอบคุณที่อยู่กับเค้าตลอดมา</p>
+        </div>
+    </section>
+
+    <script>
+        // Control Background Music
+        const bgMusic = document.getElementById('bgMusic');
+        const bgMusicPlayer = document.getElementById('bgMusicPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        bgMusic.volume = 0.0;
+        bgMusicPlayer.volume = 0.3;
+
+        function toggleMusic() {
+            if (bgMusicPlayer.paused) {
+                bgMusicPlayer.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                bgMusicPlayer.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        }
+
+        // Modal for Image
+        function openModal(src) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `<div class="modal-content"><img src="${src}" onclick="this.parentElement.parentElement.style.display='none'"></div>`;
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+            modal.onclick = () => modal.style.display = 'none';
+        }
+
+        // Floating Flowers Animation
+        function createFlowers() {
+            for (let i = 0; i < 20; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower-particle';
+                flower.style.left = Math.random() * window.innerWidth + 'px';
+                flower.style.top = window.innerHeight + 'px';
+                flower.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(flower);
+                setTimeout(() => flower.remove(), 6000);
+            }
+        }
+        setInterval(createFlowers, 3000);
+
+        // Toggle Hidden Text
+        function toggleHiddenText() {
+            const hiddenText = document.getElementById('hiddenText');
+            if (hiddenText.style.display === 'none' || hiddenText.style.display === '') {
+                hiddenText.style.display = 'block';
+                createFlowers();
+            } else {
+                hiddenText.style.display = 'none';
+            }
+        }
+
+        // Carousel Logic for Overlapping Images
+        const carousel = document.getElementById('carousel');
+        const images = carousel.getElementsByTagName('img');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            for (let i = 0; i < images.length; i++) {
+                images[i].classList.remove('active');
+            }
+            images[currentIndex].classList.add('active');
+            const offset = -currentIndex * 100;
+            carousel.style.transform = `translateX(${offset}px)`;
+        }
+
+        carousel.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                currentIndex = Array.from(images).indexOf(e.target);
+                updateCarousel();
+            }
+        });
+
+        updateCarousel();
+
+        // Intersection Observer for Fade-In Animation on Scroll
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing after animation
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-observer]').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
